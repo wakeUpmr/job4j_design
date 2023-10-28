@@ -14,8 +14,8 @@ class ConfigTest {
     }
 
     @Test
-    void whenPairWhitComment() {
-        String path = ".\\data\\pair_with_comment.properties";
+    void whenPairWithComment() {
+        String path = "./data/pair_with_comment.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name")).isEqualTo("Egor Krivonos");
@@ -23,7 +23,7 @@ class ConfigTest {
 
     @Test
     void whenPairWithoutAnEqualsSign() {
-        String path = ".\\data\\pair_without_an_equals_sign.properties";
+        String path = "./data/pair_without_an_equals_sign.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -33,7 +33,7 @@ class ConfigTest {
 
     @Test
     void whenPairDoesntContainAKey() {
-        String path = ".\\data\\pair_without_key.properties";
+        String path = "./data/pair_without_key.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -43,7 +43,7 @@ class ConfigTest {
 
     @Test
     void whenPairDoesntContainsAValue() {
-        String path = ".\\data\\pair_without_value.properties";
+        String path = "./data/pair_without_value.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -53,7 +53,7 @@ class ConfigTest {
 
     @Test
     void whenOnlyEqualSign() {
-        String path = ".\\data\\equal_sign.properties";
+        String path = "./data/equal_sign.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -62,10 +62,11 @@ class ConfigTest {
     }
 
     @Test
-    void whenPairConteinsTwoEqualSigns() {
-        String path = ".\\data\\two_equal_signs.properties";
+    void whenPairContainsTwoEqualSigns() {
+        String path = "./data/two_equal_signs.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("name")).isEqualTo("Egor Krivonos=Seems like a nice man");
     }
+
 }
