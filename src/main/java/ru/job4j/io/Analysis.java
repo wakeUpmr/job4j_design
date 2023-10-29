@@ -11,13 +11,9 @@ public class Analysis {
             while ((str = reader.readLine()) != null) {
                 String[] line = str.split(" ");
                 boolean isWork = Integer.parseInt(line[0]) < 400;
-                if (!isWork && !flag) {
-                    writer.append(line[1]).append(";");
-                    flag = true;
-                }
-                if (isWork && flag) {
-                    writer.append(line[1]).append(";").append(System.lineSeparator());
-                    flag = false;
+                if (flag == isWork) {
+                    flag = !flag;
+                    writer.append(line[1]).append(";").append(flag ? "" : System.lineSeparator());
                 }
             }
         } catch (IOException e) {
