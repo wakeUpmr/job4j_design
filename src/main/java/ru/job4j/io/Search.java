@@ -15,9 +15,15 @@ public class Search {
                 .forEach(System.out::println);
     }
 
-    public static void validate(String[] args) {
+    private static void validate(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Number of arguments is not equal to two.");
+        }
+        if (!Files.isDirectory(Paths.get(args[0]))) {
+            throw new IllegalArgumentException("Error: argument '%s' is not a directory.".formatted(args[0]));
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("Error: argument '%s' is not an extension.".formatted(args[1]));
         }
     }
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
