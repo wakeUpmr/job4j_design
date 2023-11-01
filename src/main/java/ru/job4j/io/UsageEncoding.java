@@ -44,4 +44,5 @@ public class UsageEncoding {
         System.out.println("Данные из файла: ");
         System.out.println(s);
     }
+
 }
