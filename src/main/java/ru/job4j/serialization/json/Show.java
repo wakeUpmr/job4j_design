@@ -1,18 +1,32 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.*;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Arrays;
 
+@XmlRootElement(name = "show")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Show {
-    private final boolean closed;
-    private final int seasonNumber;
-    private final Cast cast;
-    private final String[] genre;
+    @XmlAttribute
+    private boolean closed;
+    @XmlAttribute
+    private int seasonNumber;
+    private Cast cast;
+    @XmlElementWrapper(name = "genres")
+    @XmlElement(name = "genre")
+    private String[] genres;
 
-    public Show(boolean closed, int seasonNumber, Cast cast, String[] genre) {
+    public Show() { }
+
+    public Show(boolean closed, int seasonNumber, Cast cast, String[] genres) {
         this.closed = closed;
         this.seasonNumber = seasonNumber;
         this.cast = cast;
-        this.genre = genre;
+        this.genres = genres;
     }
 
     @Override
@@ -21,7 +35,24 @@ public class Show {
                 + "closed=" + closed
                 + ", seasonNumber=" + seasonNumber
                 + ", cast=" + cast
-                + ", genre=" + Arrays.toString(genre)
+                + ", genres=" + Arrays.toString(genres)
                 + '}';
     }
+
+    public static void main(String[] args) throws JAXBException {
+        final Show houseOfCards = new Show(true, 6, new Cast("Kevin Spacey"),
+                new String[] {"Drama", "Political Thriller"});
+        JAXBContext context = JAXBContext.newInstance(Show.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(houseOfCards, writer);
+            String result = writer.getBuffer().toString();
+            System.out.println(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
