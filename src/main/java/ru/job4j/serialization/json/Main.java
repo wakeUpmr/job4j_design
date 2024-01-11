@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException {
         final Show houseOfCards = new Show(true, 6, new Cast("Kevin Spacey"),
                 new String[] {"Drama", "Political Thriller"});
 
@@ -27,6 +27,7 @@ public class Main {
         jsonObject.put("cast", jsonCast);
         jsonObject.put("genres", jsonGenres);
         System.out.println(jsonObject);
+
         System.out.println(new JSONObject(houseOfCards));
     }
 }

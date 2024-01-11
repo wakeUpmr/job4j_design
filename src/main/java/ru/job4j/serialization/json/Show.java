@@ -23,6 +23,14 @@ public class Show {
         return seasonNumber;
     }
 
+    public Cast getCast() {
+        return cast;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
+
     @Override
     public String toString() {
         return "Show{"
